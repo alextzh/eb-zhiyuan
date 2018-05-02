@@ -72,8 +72,10 @@
             txt: '刷新成功'
           },
           scrollbar: {
-            fade: true
-          }
+            fade: false,
+            interactive: true
+          },
+          mouseWheel: true
         },
         hasData: false,
         device: ''

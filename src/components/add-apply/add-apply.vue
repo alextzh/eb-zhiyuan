@@ -12,7 +12,7 @@
             <span class="new_data">{{currentProduct.subscribe_money}}{{$t('apointRecord.tenThousandYuan')}}</span>
           </div>
           <div class="item__right" style="width:56%;text-align:right;">
-            <span style="flex:1;">{{$t('redeemRecord.applyTime')}}：</span>
+            <span style="flex:1;">{{$t('purchase.purchaseTime')}}：</span>
             <span class="all_data" style="flex:0 auto;">{{currentProduct.subscribe_time}}</span>
           </div>
         </div>
@@ -280,11 +280,11 @@
             setTimeout(() => {
               that.btnDisabled = false
               if (that.$i18n.locale === 'zh') {
-                parent.window.location.href = parent.path + '/common/myCenter.html'
+                parent.window.location.href = parent.path + '/common/myCenter.html?code=zhzx&no=0'
               } else if (that.$i18n.locale === 'tw') {
-                parent.window.location.href = parent.path + '/common/ft_myCenter.html'
+                parent.window.location.href = parent.path + '/common/ft_myCenter.html?code=zhzx&no=0'
               } else if (that.$i18n.locale === 'en') {
-                parent.window.location.href = parent.path + '/common/en_myCenter.html'
+                parent.window.location.href = parent.path + '/common/en_myCenter.html?code=zhzx&no=0'
               }
             }, 500)
           },
@@ -378,6 +378,7 @@
   right: 0;
   top: 0;
   line-height: 40px;
+  color: #ffac2a;
   z-index: 0;
 }
 .select_type input {
@@ -425,7 +426,7 @@
   font-size: 16px;
   flex:1;
   border-radius: 0;
-  border-bottom:1px solid #BDBDBD;
+  border-bottom:1px solid #ffac2a;
   box-sizing: border-box;
   background: #fff;
   outline: none;

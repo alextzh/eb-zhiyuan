@@ -66,8 +66,10 @@
             txt: '刷新成功'
           },
           scrollbar: {
-            fade: true
-          }
+            fade: false,
+            interactive: true
+          },
+          mouseWheel: true
         },
         hasData: false
       }
@@ -183,11 +185,11 @@
             showToast(res.msg, 'correct')
             setTimeout(() => {
               if (this.$i18n.locale === 'zh') {
-                parent.window.location.href = parent.path + '/common/myCenter.html'
+                parent.window.location.href = parent.path + '/common/myCenter.html?code=zhzx&no=0'
               } else if (this.$i18n.locale === 'tw') {
-                parent.window.location.href = parent.path + '/common/ft_myCenter.html'
+                parent.window.location.href = parent.path + '/common/ft_myCenter.html?code=zhzx&no=0'
               } else if (this.$i18n.locale === 'en') {
-                parent.window.location.href = parent.path + '/common/en_myCenter.html'
+                parent.window.location.href = parent.path + '/common/en_myCenter.html?code=zhzx&no=0'
               }
             }, 500)
           },

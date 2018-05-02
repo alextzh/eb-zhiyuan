@@ -21,7 +21,7 @@
                   <span class="new_data">{{item.deduct_money}}{{$t('apointRecord.tenThousandYuan')}}</span>
                 </div>
                 <div class="item__right" style="width:56%;text-align:right;">
-                  <span style="flex:1;">{{$t('purchase.purchaseTime')}}：</span>
+                  <span style="flex:1;">{{$t('redeemRecord.applyTime')}}：</span>
                   <span class="all_data" style="flex:0 auto;">{{item.create_time}}</span>
                 </div>
               </div>
@@ -57,8 +57,10 @@
             txt: this.$i18n.t('scroll.defaultRefreshTxt')
           },
           scrollbar: {
-            fade: true
-          }
+            fade: false,
+            interactive: true
+          },
+          mouseWheel: true
         },
         hasData: false
       }

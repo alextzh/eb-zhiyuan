@@ -39,7 +39,7 @@
               </div>
               <div class="item_body">
                 <div class="item__left">
-                  <span>{{$t('redeemRecord.applyTime')}}：</span>
+                  <span>{{$t('purchase.purchaseTime')}}：</span>
                   <span class="new_data">{{item.subscribe_time}}</span>
                 </div>
               </div>

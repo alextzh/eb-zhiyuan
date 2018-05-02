@@ -19,13 +19,13 @@
                 <span class="item_state" style='color: #262163;' v-if="item.status === 'SHSHZ'">{{$t('apointRecord.redeemPendingReview')}}</span>
                 <span class="item_state" style='color: #2E3094;' v-if="item.status === 'YSH'">{{$t('apointRecord.redeemed')}}</span>
               </div>
-              <div class="item_body">
+              <div class="item_body" v-if="item.status === 'SHTG'">
                 <div class="item__left">
-                  <span>{{$t('purchase.schemeName')}}：</span>
+                  <span>{{$t('plan.originalScheme')}}：</span>
                   <span class="new_data">{{item.product_name}}</span>
                 </div>
               </div>
-              <div class="item_body">
+              <div class="item_body" v-if="item.status === 'SHTG'">
                 <div class="item__left">
                   <span>{{$t('purchase.purchaseAmt')}}：</span>
                   <span class="new_data">{{item.subscribe_money}}{{$t('apointRecord.tenThousandYuan')}}</span>
@@ -33,19 +33,29 @@
               </div>
               <div class="item_body" v-if="item.status === 'XGDSH'">
                 <div class="item__left">
-                  <span>{{$t('plan.targetScheme')}}：</span>
-                  <span class="new_data">{{item.target_product_name}}</span>
+                  <span>{{$t('plan.originalScheme')}}：</span>
+                  <span class="new_data">{{item.product_name}} - {{item.subscribe_money}}{{$t('apointRecord.tenThousandYuan')}}</span>
                 </div>
               </div>
               <div class="item_body" v-if="item.status === 'XGDSH'">
                 <div class="item__left">
+                  <span>{{$t('plan.targetScheme')}}：</span>
+                  <span class="new_data">{{item.target_product_name}} - {{item.edit_money / 10000}}{{$t('apointRecord.tenThousandYuan')}}</span>
+                </div>
+              </div>
+              <!-- <div class="item_body" v-if="item.status === 'XGDSH'">
+                <div class="item__left">
                   <span>{{$t('plan.modifyShare')}}：</span>
                   <span class="new_data">{{item.edit_money / 10000}}{{$t('apointRecord.tenThousandYuan')}}</span>
                 </div>
-              </div>
-              <div class="item_foot" v-if="item.subscribe_time">
+              </div> -->
+              <div class="item_foot" v-if="item.status === 'SHTG'">
                 <span>{{$t('purchase.purchaseTime')}}：</span>
                 <span>{{item.subscribe_time}}</span>
+              </div>
+              <div class="item_foot" v-if="item.status === 'XGDSH'">
+                <span>{{$t('redeemRecord.applyTime')}}：</span>
+                <span>{{item.apply_time}}</span>
               </div>
               <div class="item_action" v-if="item.isSqXgfaBtn && item.status === 'SHTG'">
                 <div style="flex: 1;">
@@ -184,6 +194,9 @@
         } else {
           for (let i = 0; i < list.length; i++) {
             list[i].subscribe_money = rendererZhMoneyWan(list[i].subscribe_money)
+            if (list[i].apply_time) {
+              list[i].apply_time = list[i].apply_time.slice(0, 19)
+            }
           }
           return list
         }

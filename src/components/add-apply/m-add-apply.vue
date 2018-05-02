@@ -5,6 +5,13 @@
         <div class="item_head">
           <i class="iconfont icon-item"></i>
           <span class="title">{{currentProduct.name}}</span>
+          <span class="new_data" style='color: #652D92;text-align:right;' v-if="currentProduct.sub_status === 'DSH'">{{$t('apointRecord.pendingReview')}}</span>
+          <span class="new_data" style='color: #09B3CD;text-align:right;' v-if="currentProduct.sub_status === 'SHTG'">{{$t('apointRecord.reviewPassed')}}</span>
+          <span class="new_data" style='color: #EB1C22;text-align:right;' v-if="currentProduct.sub_status === 'SHJJ'">{{$t('apointRecord.reviewReject')}}</span>
+          <span class="new_data" style='color: #92278F;text-align:right;' v-if="currentProduct.sub_status === 'ZJDSH'">{{$t('apointRecord.addPendingReview')}}</span>
+          <span class="new_data" style='color: #41123C;text-align:right;' v-if="currentProduct.sub_status === 'XGDSH'">{{$t('apointRecord.modifyPendingReview')}}</span>
+          <span class="new_data" style='color: #262163;text-align:right;' v-if="currentProduct.sub_status === 'SHSHZ'">{{$t('apointRecord.redeemPendingReview')}}</span>
+          <span class="new_data" style='color: #2E3094;text-align:right;' v-if="currentProduct.sub_status === 'YSH'">{{$t('apointRecord.redeemed')}}</span>
         </div>
         <div class="item_body">
           <div class="item__left">
@@ -14,26 +21,8 @@
         </div>
         <div class="item_body">
           <div class="item__left">
-            <span>{{$t('redeemRecord.applyTime')}}：</span>
+            <span>{{$t('purchase.purchaseTime')}}：</span>
             <span class="new_data">{{currentProduct.subscribe_time}}</span>
-          </div>
-        </div>
-        <div class="item_body">
-          <div class="item__left">
-            <span>{{$t('addApply.purchaseStatus')}}：</span>
-            <span class="new_data" style='color: #652D92;' v-if="currentProduct.sub_status === 'DSH'">{{$t('apointRecord.pendingReview')}}</span>
-            <span class="new_data" style='color: #09B3CD;' v-if="currentProduct.sub_status === 'SHTG'">{{$t('apointRecord.reviewPassed')}}</span>
-            <span class="new_data" style='color: #EB1C22;' v-if="currentProduct.sub_status === 'SHJJ'">{{$t('apointRecord.reviewReject')}}</span>
-            <span class="new_data" style='color: #92278F;' v-if="currentProduct.sub_status === 'ZJDSH'">{{$t('apointRecord.addPendingReview')}}</span>
-            <span class="new_data" style='color: #41123C;' v-if="currentProduct.sub_status === 'XGDSH'">{{$t('apointRecord.modifyPendingReview')}}</span>
-            <span class="new_data" style='color: #262163;' v-if="currentProduct.sub_status === 'SHSHZ'">{{$t('apointRecord.redeemPendingReview')}}</span>
-            <span class="new_data" style='color: #2E3094;' v-if="currentProduct.sub_status === 'YSH'">{{$t('apointRecord.redeemed')}}</span>
-          </div>
-        </div>
-        <div class="item_body">
-          <div class="item__left">
-            <span>{{$t('addApply.minShare')}}：</span>
-            <span class="new_data">{{currentProduct.min_money / 10000}}{{$t('apointRecord.tenThousandYuan')}}</span>
           </div>
         </div>
         <div class="item_foot" v-if="currentProduct.recast_start_time">
@@ -58,7 +47,6 @@
           <div class="select_type" v-if="pickerArr.length > 1">
             <i class="iconfont icon-unfold"></i>
             <span class="type_title">{{$t('purchase.schemeType')}}：</span>
-            <!-- <input type="text" palceholder="请选择方案类型" @click="selectPlan" readonly :value="curValue" /> -->
             <select class="zy_select" @change="selectPlan">
               <option :value="curValue" v-for="(o, i) in pickerArr" :key="i">{{o.text}}</option>
             </select>
@@ -321,6 +309,8 @@
   position: relative;
   line-height:30px;
   padding-bottom:10px;
+  display: flex;
+  align-items: center;
 }
 .item_head i{
   color: #212832;
@@ -380,6 +370,7 @@
   right: 0;
   top: 0;
   line-height: 40px;
+  color: #212832;
   z-index: 0;
 }
 .select_type input {
@@ -428,7 +419,7 @@
   font-size: 16px;
   flex:1;
   border-radius: 0;
-  border-bottom:1px solid #BDBDBD;
+  border-bottom:1px solid #212832;
   box-sizing: border-box;
   background: #fff;
   outline: none;

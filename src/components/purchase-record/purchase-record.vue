@@ -25,7 +25,7 @@
                   <span class="new_data">{{item.subscribe_money}}{{$t('apointRecord.tenThousandYuan')}}</span>
                 </div>
                 <div class="item__right" style="width:56%;text-align:right;">
-                  <span style="flex:1;">{{$t('redeemRecord.applyTime')}}：</span>
+                  <span style="flex:1;">{{$t('purchase.purchaseTime')}}：</span>
                   <span class="all_data" style="flex:0 auto;">{{item.subscribe_time}}</span>
                 </div>
               </div>
@@ -111,8 +111,10 @@
             txt: this.$i18n.t('scroll.defaultRefreshTxt')
           },
           scrollbar: {
-            fade: true
-          }
+            fade: false,
+            interactive: true
+          },
+          mouseWheel: true
         },
         hasData: false
       }
@@ -217,22 +219,22 @@
       redeemAction(e) {
         setProduct(e)
         if (this.$i18n.locale === 'zh') {
-          parent.window.location.href = parent.path + '/common/redeem.html'
+          parent.window.location.href = parent.path + '/common/redeem.html?code=zycp&no=0'
         } else if (this.$i18n.locale === 'tw') {
-          parent.window.location.href = parent.path + '/common/ft_redeem.html'
+          parent.window.location.href = parent.path + '/common/ft_redeem.html?code=zycp&no=0'
         } else if (this.$i18n.locale === 'en') {
-          parent.window.location.href = parent.path + '/common/en_redeem.html'
+          parent.window.location.href = parent.path + '/common/en_redeem.html?code=zycp&no=0'
         }
       },
       // 追加份额
       addAction(e) {
         setProduct(e)
         if (this.$i18n.locale === 'zh') {
-          parent.window.location.href = parent.path + '/common/addApply.html'
+          parent.window.location.href = parent.path + '/common/addApply.html?code=zycp&no=0'
         } else if (this.$i18n.locale === 'tw') {
-          parent.window.location.href = parent.path + '/common/ft_addApply.html'
+          parent.window.location.href = parent.path + '/common/ft_addApply.html?code=zycp&no=0'
         } else if (this.$i18n.locale === 'en') {
-          parent.window.location.href = parent.path + '/common/en_addApply.html'
+          parent.window.location.href = parent.path + '/common/en_addApply.html?code=zycp&no=0'
         }
       }
     }

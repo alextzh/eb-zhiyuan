@@ -29,7 +29,7 @@
           </div>
         </div>
         <div class="item_foot" v-if="currentProduct.status !== '操盘中'">
-          <span>{{$t('purchase.purchaseTime')}}：</span>
+          <span>{{$t('apointRecord.appointmentTime')}}：</span>
           <span style="font-size:12px;">{{currentProduct.sg_start_time}} <span style="color:#212832;font-size:12px;">~</span> {{currentProduct.sg_end_time}}</span>
         </div>
         <div class="item_foot">

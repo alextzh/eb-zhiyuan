@@ -14,7 +14,7 @@
         </div>
         <div class="item_body">
           <div class="item__left">
-            <span>{{$t('redeemRecord.applyTime')}}：</span>
+            <span>{{$t('purchase.purchaseTime')}}：</span>
             <span class="new_data">{{currentProduct.subscribe_time}}</span>
           </div>
         </div>
@@ -314,7 +314,7 @@
   padding:17px 25px;
   font-size: 16px;
   flex:1;
-  border-bottom:1px solid #BDBDBD;
+  border-bottom:1px solid #212832;
   border-radius: 0;
   box-sizing: border-box;
   background: #fff;

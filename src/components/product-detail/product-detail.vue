@@ -27,7 +27,7 @@
           </div>
         </div>
         <div class="item_foot" v-if="currentProduct.status !== '操盘中'">
-          <span>{{$t('purchase.purchaseTime')}}：</span>
+          <span>{{$t('apointRecord.appointmentTime')}}：</span>
           <span>{{currentProduct.sg_start_time}} <span style="color:#ffac2a;">~</span> {{currentProduct.sg_end_time}}</span>
         </div>
         <div class="item_foot">
@@ -357,11 +357,11 @@
             setTimeout(() => {
               that.btnDisabled = false
               if (that.$i18n.locale === 'zh') {
-                parent.window.location.href = parent.path + '/common/myCenter.html'
+                parent.window.location.href = parent.path + '/common/myCenter.html?code=zhzx&no=0'
               } else if (that.$i18n.locale === 'tw') {
-                parent.window.location.href = parent.path + '/common/ft_myCenter.html'
+                parent.window.location.href = parent.path + '/common/ft_myCenter.html?code=zhzx&no=0'
               } else if (that.$i18n.locale === 'en') {
-                parent.window.location.href = parent.path + '/common/en_myCenter.html'
+                parent.window.location.href = parent.path + '/common/en_myCenter.html?code=zhzx&no=0'
               }
             }, 500)
           },
@@ -463,6 +463,7 @@
   right: 0;
   top: 0;
   line-height: 40px;
+  color: #ffac2a;
   z-index: 0;
 }
 .select_type input {

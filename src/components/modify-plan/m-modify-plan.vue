@@ -419,6 +419,7 @@
   right: 0;
   top: 0;
   line-height: 40px;
+  color: #212832;
   z-index: 0;
 }
 .select_type input {
@@ -465,7 +466,7 @@
   font-size: 16px;
   flex:1;
   border-radius: 0;
-  border-bottom:1px solid #BDBDBD;
+  border-bottom:1px solid #212832;
   box-sizing: border-box;
   background: #fff;
   outline: none;

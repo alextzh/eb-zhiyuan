@@ -52,7 +52,7 @@ export default {
     productName: '產品名稱',
     productStatus: '產品狀態',
     productDetail: '產品詳情',
-    purchaseTime: '預約時間',
+    purchaseTime: '申購時間',
     purchaseStart: '預約開始',
     purchaseEnd: '預約結束',
     diskTime: '操盤時間',
@@ -99,6 +99,7 @@ export default {
   },
 
   apointRecord: {
+    appointmentTime: '預約時間',
     inAppointment: '預約中',
     pendingReview: '待審核',
     reviewReject: '審核拒絕',
@@ -148,6 +149,7 @@ export default {
   },
 
   plan: {
+    originalScheme: '申購方案',
     targetScheme: '目標方案',
     modifyShare: '修改金額',
     applyModify: '申請修改方案',
@@ -186,6 +188,7 @@ export default {
   },
 
   management: {
+    signTime: '簽署時間',
     contractName: '合同名稱',
     download: '下載',
     view: '預覽',

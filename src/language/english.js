@@ -52,7 +52,7 @@ export default {
     productName: 'ProductName',
     productStatus: 'Status',
     productDetail: 'ProductDetail',
-    purchaseTime: 'AppointmentTime',
+    purchaseTime: 'PurchaseTime',
     purchaseStart: 'PurchaseStart',
     purchaseEnd: 'PurchaseEnd',
     diskTime: 'DiskTime',
@@ -99,6 +99,7 @@ export default {
   },
 
   apointRecord: {
+    appointmentTime: 'AppointmentTime',
     inAppointment: 'In Appointment',
     pendingReview: 'Pending Review',
     reviewReject: 'Review Reject',
@@ -148,6 +149,7 @@ export default {
   },
 
   plan: {
+    originalScheme: 'PurchaseScheme',
     targetScheme: 'TargetScheme',
     modifyShare: 'ModifyAmount',
     applyModify: 'ApplyModify',
@@ -186,6 +188,7 @@ export default {
   },
 
   management: {
+    signTime: 'SignTime',
     contractName: 'ContractName',
     download: 'Download',
     view: 'View',
@@ -193,7 +196,7 @@ export default {
     tip: 'Please use the PC to download',
     unSigned: 'unSigned',
     toBeSigned: 'toBeSigned',
-    signed: 'signed',
+    signed: 'customerSigned',
     signCompleted: 'signCompleted',
     archive: 'archive'
   },

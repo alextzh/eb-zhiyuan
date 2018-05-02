@@ -21,7 +21,7 @@
               </div>
               <div class="item_body">
                 <div class="item__left" style="width:58%;">
-                  <span>{{$t('purchase.schemeName')}}：</span>
+                  <span>{{$t('plan.originalScheme')}}：</span>
                   <span class="new_data">{{item.product_name}}</span>
                 </div>
                 <div class="item__right" style="width:42%;text-align:right;">
@@ -39,9 +39,13 @@
                   <span class="all_data" style="flex:0 auto;">{{item.edit_money / 10000}}{{$t('apointRecord.tenThousandYuan')}}</span>
                 </div>
               </div>
-              <div class="item_foot" v-if="item.subscribe_time">
+              <div class="item_foot" v-if="item.status === 'SHTG'">
                 <span>{{$t('purchase.purchaseTime')}}：</span>
                 <span>{{item.subscribe_time}}</span>
+              </div>
+              <div class="item_foot" v-if="item.status === 'XGDSH'">
+                <span>{{$t('redeemRecord.applyTime')}}：</span>
+                <span>{{item.apply_time}}</span>
               </div>
               <div class="item_action" v-if="item.isSqXgfaBtn && item.status === 'SHTG'">
                 <div style="flex: 1;">
@@ -92,8 +96,10 @@
             txt: '刷新成功'
           },
           scrollbar: {
-            fade: true
-          }
+            fade: false,
+            interactive: true
+          },
+          mouseWheel: true
         },
         hasData: false
       }
@@ -180,6 +186,9 @@
         } else {
           for (let i = 0; i < list.length; i++) {
             list[i].subscribe_money = rendererZhMoneyWan(list[i].subscribe_money)
+            if (list[i].apply_time) {
+              list[i].apply_time = list[i].apply_time.slice(0, 19)
+            }
           }
           return list
         }
@@ -187,11 +196,11 @@
       modifyAction(e) {
         setProduct(e)
         if (this.$i18n.locale === 'zh') {
-          parent.window.location.href = parent.path + '/common/modifyPlan.html'
+          parent.window.location.href = parent.path + '/common/modifyPlan.html?code=zycp&no=0'
         } else if (this.$i18n.locale === 'tw') {
-          parent.window.location.href = parent.path + '/common/ft_modifyPlan.html'
+          parent.window.location.href = parent.path + '/common/ft_modifyPlan.html?code=zycp&no=0'
         } else if (this.$i18n.locale === 'en') {
-          parent.window.location.href = parent.path + '/common/en_modifyPlan.html'
+          parent.window.location.href = parent.path + '/common/en_modifyPlan.html?code=zycp&no=0'
         }
       },
       cancelAction(e) {
@@ -221,11 +230,11 @@
             showToast(res.msg, 'correct')
             setTimeout(() => {
               if (this.$i18n.locale === 'zh') {
-                parent.window.location.href = parent.path + '/common/myCenter.html'
+                parent.window.location.href = parent.path + '/common/myCenter.html?code=zhzx&no=0'
               } else if (this.$i18n.locale === 'tw') {
-                parent.window.location.href = parent.path + '/common/ft_myCenter.html'
+                parent.window.location.href = parent.path + '/common/ft_myCenter.html?code=zhzx&no=0'
               } else if (this.$i18n.locale === 'en') {
-                parent.window.location.href = parent.path + '/common/en_myCenter.html'
+                parent.window.location.href = parent.path + '/common/en_myCenter.html?code=zhzx&no=0'
               }
             }, 500)
           },

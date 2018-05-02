@@ -52,7 +52,7 @@ export default {
     productName: '产品名称',
     productStatus: '产品状态',
     productDetail: '产品详情',
-    purchaseTime: '预约时间',
+    purchaseTime: '申购时间',
     purchaseStart: '申购开始',
     purchaseEnd: '申购结束',
     diskTime: '操盘时间',
@@ -99,6 +99,7 @@ export default {
   },
 
   apointRecord: {
+    appointmentTime: '预约时间',
     inAppointment: '预约中',
     pendingReview: '待审核',
     reviewReject: '审核拒绝',
@@ -148,6 +149,7 @@ export default {
   },
 
   plan: {
+    originalScheme: '申购方案',
     targetScheme: '目标方案',
     modifyShare: '修改金额',
     applyModify: '申请修改方案',
@@ -186,6 +188,7 @@ export default {
   },
 
   management: {
+    signTime: '签署时间',
     contractName: '合同名称',
     download: '下载',
     view: '预览',
