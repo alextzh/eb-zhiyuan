@@ -1,123 +1,140 @@
 <template>
   <transition name="fade">
     <div class="box">
-      <div class="content" v-if="currentProduct">
-        <div class="item_head">
-          <i class="iconfont icon-item"></i>
-          <span class="title">{{currentProduct.name}}</span>
-        </div>
+      <div class="content" v-if="currentPlan">
         <div class="item_body">
           <div class="item__left">
-            <span>{{$t('purchase.productType')}}：</span>
-            <span class="new_data">{{currentProduct.product_type}}</span>
-          </div>
-          <div class="item__right" style="text-align:right;">
-            <span style="flex:1;">{{$t('purchase.productStatus')}}：</span>
-            <span class="all_data" style="flex:0 auto;" v-if="currentProduct.status === 'YYZ'">{{$t('apointRecord.inAppointment')}}</span>
+            <span>账户余额：</span>
+            <span style="color: #ffac2a;padding-right: 5px;">¥</span>
+            <span class="new_data" style="font-size:24px;">8,975,579,773.67</span>
           </div>
         </div>
-        <div class="item_body">
+        <div class="item_body" style="line-height:30px;">
           <div class="item__left">
-            <span>{{$t('purchase.minShare')}}：</span>
-            <span class="new_data">{{currentProduct.start_money / 10000}}{{$t('apointRecord.tenThousandYuan')}}</span>
+            <span>预约中项目：</span>
+            <span class="new_data">{{currentPlan.loanName}}</span>
+          </div>
+        </div>
+        <div class="item_body" style="line-height:30px;">
+          <div class="item__left">
+            <span>金额：</span>
+            <span class="new_data">{{currentPlan.platformCharge / 10000}}万</span>
           </div>
           <div class="item__right" style="text-align:right;">
-            <span style="flex:1;">{{$t('purchase.increasingShare')}}：</span>
-            <span class="all_data" style="flex:0 auto;">1{{$t('apointRecord.tenThousandYuan')}}</span>
+            <span style="flex:1;">人数：</span>
+            <span class="all_data" style="flex:0 auto;">{{currentPlan.notrepayPerNo}}人</span>
           </div>
         </div>
-        <div class="item_foot" v-if="currentProduct.status !== '操盘中'">
-          <span>{{$t('apointRecord.appointmentTime')}}：</span>
-          <span>{{currentProduct.sg_start_time}} <span style="color:#ffac2a;">~</span> {{currentProduct.sg_end_time}}</span>
+        <div class="item_body" style="line-height:30px;">
+          <div class="item__left">
+            <span>进度：</span>
+            <span class="new_data">{{currentPlan.percent}}%</span>
+          </div>
         </div>
-        <div class="item_foot">
-          <span>{{$t('purchase.diskTime')}}：</span>
-          <span>{{currentProduct.caopan_time}}</span>
+        <div class="item_body" style="line-height:30px;">
+          <div class="item__left">
+            <span>开始时间：</span>
+            <span class="new_data">{{currentPlan.investStartTime}}</span>
+          </div>
         </div>
-        <div class="item_foot" style="display: flex;" v-if="currentProduct.describe">
-          <span>{{$t('purchase.productIntroduction')}}：</span>
-          <div style="flex: 1;">
-            <span style="line-height: 1;">{{currentProduct.describe}}</span>
+        <div class="item_body" style="line-height:30px;">
+          <div class="item__left">
+            <span>结束时间：</span>
+            <span class="new_data">{{currentPlan.financeEndTime}}</span>
           </div>
         </div>
       </div>
-      <div style="padding: 10px;width: 100%;box-sizing: border-box;" v-if="currentProduct">
+      <div class="content" v-else>
+        <div class="item_body">
+          <div class="item__left">
+            <span>账户余额：</span>
+            <span style="color: #ffac2a;padding-right: 5px;">¥</span>
+            <span class="new_data" style="font-size:24px;">8,975,579,773.67</span>
+          </div>
+        </div>
+        <div class="item_body" style="line-height:30px;">
+          <div class="item__left">
+            <span>预约中项目：</span>
+            <span class="new_data">暂无预约项目</span>
+          </div>
+        </div>
+        <div class="item_body" style="line-height:30px;">
+          <div class="item__left">
+            <span>金额：</span>
+            <span class="new_data">0万</span>
+          </div>
+          <div class="item__right" style="text-align:right;">
+            <span style="flex:1;">人数：</span>
+            <span class="all_data" style="flex:0 auto;">0人</span>
+          </div>
+        </div>
+        <div class="item_body" style="line-height:30px;">
+          <div class="item__left">
+            <span>进度：</span>
+            <span class="new_data">0%</span>
+          </div>
+        </div>
+        <div class="item_body" style="line-height:30px;">
+          <div class="item__left">
+            <span>开始时间：</span>
+            <span class="new_data">- -</span>
+          </div>
+        </div>
+        <div class="item_body" style="line-height:30px;">
+          <div class="item__left">
+            <span>结束时间：</span>
+            <span class="new_data">- -</span>
+          </div>
+        </div>
+      </div>
+      <div style="padding: 0 10px;width: 100%;box-sizing: border-box;">
         <div class="form_box">
           <form class="form_area" method="post" @submit.prevent="formSubmit()">
-            <div style="padding: 0 10px;">
-              <div class="select_type" v-if="pickerArr.length > 1">
+            <div v-if="currentPlan">
+              <div class="select_type">
                 <i class="iconfont icon-unfold"></i>
-                <span class="type_title">{{$t('purchase.schemeType')}}：</span>
-                <!-- <input type="text" palceholder="请选择方案类型" @click="selectPlan" readonly :value="curValue" /> -->
+                <span class="type_title">预约项目：</span>
                 <select id="zySelect" class="zy_select" @change="selectPlan">
                   <option :value="o.text" v-for="(o, i) in pickerArr" :key="i">{{o.text}}</option>
                 </select>
               </div>
             </div>
-            <div style="padding: 10px;" v-if="showArr.length === 1">
-              <div class="item_body">
-                <div class="item__left" style="width:65%;">
-                  <span>{{$t('purchase.productName')}}：</span>
-                  <span class="new_data">{{currentPlan.name}}</span>
-                </div>
-                <div class="item__right" style="width:35%;text-align:right;">
-                  <span style="flex:1;">{{$t('purchase.maxNumber')}}：</span>
-                  <span class="all_data" style="flex:0 auto;">{{currentPlan.max_amount}}</span>
-                </div>
-              </div>
-              <div class="item_foot" style='display:flex'>
-                <span>{{$t('purchase.settlementTime')}}：</span>
-                <div style="flex:1;display:flex;flex-wrap:wrap;">
-                  <div style="display:flex;width:50%;" v-for="(t, i) in currentPlan.settlement_time" :key="i">
-                    <span style="flex:1">{{t}}</span>
-                  </div>
-                </div>
-              </div>
-              <div class="item_foot" style="display: flex;">
-                <span>{{$t('purchase.productDetail')}}：</span>
-                <div style="flex: 1;">
-                  <span style="line-height: 1;">{{currentPlan.describe}}</span>
-                </div>
+            <div v-else>
+              <div class="select_type">
+                <i class="iconfont icon-unfold"></i>
+                <span class="type_title">预约项目：</span>
+                <select id="zySelect" class="zy_select">
+                  <option value="">暂无预约项目</option>
+                </select>
               </div>
             </div>
-            <div style="padding: 0 10px 5px;" v-if="showArr.length > 1">
-              <div class="item_body">
-                <div class="item__left" style="width:65%;">
-                  <span>{{$t('purchase.schemeName')}}：</span>
-                  <span class="new_data">{{currentPlan.name}}</span>
-                </div>
-                <div class="item__right" style="width:35%;text-align:right;">
-                  <span style="flex:1;">{{$t('purchase.maxNumber')}}：</span>
-                  <span class="all_data" style="flex:0 auto;">{{currentPlan.max_amount}}</span>
-                </div>
-              </div>
-              <div class="item_foot" style='display:flex'>
-                <span>{{$t('purchase.settlementTime')}}：</span>
-                <div style="flex:1;display:flex;flex-wrap:wrap;">
-                  <div style="display:flex;width:50%;" v-for="(t, i) in currentPlan.settlement_time" :key="i">
-                    <span style="flex:1">{{t}}</span>
-                  </div>
-                </div>
-              </div>
-              <div class="item_foot" style="display: flex;">
-                <span>{{$t('purchase.schemeDetail')}}：</span>
-                <div style="flex: 1;">
-                  <span>{{currentPlan.describe}}</span>
-                </div>
-              </div>
-            </div>
-            <div v-if="currentProduct" style="padding: 0 10px;">
-              <!-- <div class="money_type">
+            <div>
+              <div class="money_type">
                 <span class="title">{{$t('moneyType.title')}}：</span>
                 <div class="con">
                   <cube-radio-group v-model="moneyType" :options="options" :horizontal="true" />
                 </div>
-              </div> -->
+              </div>
               <div class="input_area">
-                <div class="input_title">{{$t('purchase.bidShare')}}：</div>
-                <div class="input_con">
-                  <input type="number" v-model="purchaseAmt" :placeholder="$t('purchase.tip1')" />
+                <div class="input_form">
+                  <i class="iconfont icon-redeemed"></i>
                   <span class='unit'>{{$t('apointRecord.tenThousandYuan')}}</span>
+                  <input type="number" v-model="purchaseAmt" :placeholder="$t('purchase.tip1')" />
+                </div>
+              </div>
+              <div v-if="currentPlan && currentPlan.loanProvince === '1'">
+                <div class="select_type">
+                  <i class="iconfont icon-unfold"></i>
+                  <span class="type_title">使用红包：</span>
+                  <select id="zySelect" class="zy_select" @change="selectCoupon">
+                    <option value="">请选择红包</option>
+                  </select>
+                </div>
+                <div class="item_body">
+                  <div class="item__left">
+                    <span>实际支付：</span>
+                    <span class="new_data">0</span>
+                  </div>
                 </div>
               </div>
               <div class="btn_area" v-if="btnState === 1">
@@ -129,23 +146,27 @@
               <div class="btn_area" v-if="btnState === 2">
                 <cube-button type="submit" :disabled="btnDisabled">{{purchaseDisTxt1}}</cube-button>
               </div>
+              <div class="btn_area" v-if="btnState === 4">
+                <cube-button type="submit" :disabled="btnDisabled">{{purchaseBtnTxt}}</cube-button>
+              </div>
             </div>
           </form>
         </div>
-        <div class="explain" v-if="showArr.length > 1">
-          <h6>【{{$t('explain.title')}}】</h6>
-          <p>{{$t('explain.item1')}}</p>
-          <p>{{$t('explain.item2')}}</p>
-          <p>{{$t('explain.item2_1')}}</p>
-          <p>{{$t('explain.item2_2')}}</p>
-          <p>{{$t('explain.item2_3')}}</p>
-          <p>{{$t('explain.item3')}}</p>
+        <div class="explain">
+          <h6>【风险提示】</h6>
+          <p>攀岩项目是高波动率产品，建议谨慎选择，理性投资。</p>
         </div>
-      </div>
-      <div v-if="hasData" class="noData">
-        <div class="no_data">
-          <img src="./no_data.png" alt="">
-          <p>{{$t('purchase.tip19')}}</p>
+        <div class="explain">
+          <h6>【攀岩项目说明】</h6>
+          <p>1.攀岩项目是指对操盘手项目风险金的募集；</p>
+          <p>2.投资门槛：投攀岩项目的投资人须满足10次以上（含10次）成功投资经验的；</p>
+          <p>3.不限人数，额度满按时间排序入围；</p>
+          <p>4.预约截止时间若未满标，平台垫付差额；</p>
+        </div>
+        <div class="explain">
+          <h6>【网签合同下载步骤】</h6>
+          <p>1.项目操盘后可以下载合同；</p>
+          <p>2.预约列表页面,点击下载签名合同；</p>
         </div>
       </div>
     </div>
@@ -153,11 +174,40 @@
 </template>
 
 <script type="text/ecmascript-6">
-  import {_normalizeStr, getMd5, getBJDate} from 'common/js/tool'
+  import {getMd5, getBJDate} from 'common/js/tool'
   import {showToast, showAlert, showDialog} from 'common/js/cubeTool'
   import $ from 'jquery'
   import * as API from 'common/js/http'
   import Plan from 'common/js/plan'
+
+  const msg = [
+    {
+      financeEndTime: '2018-05-30 12:00:00',
+      investStartTime: '2018-02-24 08:00:00',
+      isExchange: 0,
+      loanAmt: 20000000,
+      loanDays: 0,
+      loanName: '银河战队V4期【T+10*6】',
+      loanNo: '2017022373881679',
+      loanProvince: '1',
+      notrepayPerNo: 3,
+      platformCharge: 38000,
+      remainDays: 0
+    },
+    {
+      financeEndTime: '2018-06-21 12:00:00',
+      investStartTime: '2018-06-21 08:00:00',
+      isExchange: 0,
+      loanAmt: 10000000,
+      loanDays: 0,
+      loanName: '重仓V4期(增1)【T+9*1+10*4】',
+      loanNo: '2017062019360256',
+      loanProvince: '0',
+      notrepayPerNo: 0,
+      platformCharge: 0,
+      remainDays: 0
+    }
+  ]
 
   export default {
     data() {
@@ -165,13 +215,11 @@
         loading: null,
         showArr: [],
         pickerArr: [],
-        curValue: '',
         currentPlan: null,
-        currentProduct: null,
         customer_id: '',
         purchaseAmt: '',
+        btnState: 1,
         btnDisabled: false,
-        hasData: false,
         moneyType: '1',
         options: [
           {
@@ -250,7 +298,7 @@
     },
     mounted() {
       this.$nextTick(() => {
-        this.getSubProductList()
+        this.getRockLoanList()
       })
     },
     watch: {
@@ -260,73 +308,56 @@
     },
     methods: {
       /**
-       * 获取预约项目信息
+       * 获取预约项目列表
       */
-      getSubProductList() {
+      getRockLoanList() {
+        this.loading.hide()
+        if (!msg || msg.length === 0) {
+          this.btnState = 4
+          this.btnDisabled = true
+          return
+        }
+        var showArr = msg
+        var pickerArr = []
+        if (showArr.length > 0) {
+          showArr.forEach((item, index) => {
+            pickerArr.push(new Plan({
+              text: item.loanName,
+              value: index
+            }))
+            item.percent = (item.platformCharge / item.loanAmt * 100).toFixed(2)
+          })
+          this.pickerArr = pickerArr
+          this.showArr = showArr
+          this.currentPlan = showArr[0]
+          this.changeBtnState(showArr[0].investStartTime, showArr[0].financeEndTime)
+        }
+      },
+      changeBtnState(startTime, endTime) {
         const time_stamp = getBJDate()
-        const secret_key = getMd5()
-        $.ajax({
-          type: 'POST',
-          url: API.api + '/api/v1/deduct/product4Vip',
-          dataType: 'json',
-          headers: {
-            'content-type': 'application/x-www-form-urlencoded',
-            'secret_key': secret_key,
-            'time_stamp': time_stamp
-          },
-          success: (res) => {
-            this.loading.hide()
-            if (!res.ret) {
-              showToast(res.msg, 'warn')
-              this.hasData = true
-              return false
-            }
-            var obj = res.obj
-            // 开始时间的时间戳
-            var startTime = new Date(obj.sg_start_time + '000').getTime()
-            // 结束时间的时间戳
-            var endTime = new Date(obj.sg_end_time + '000').getTime()
-            if (time_stamp < startTime) {
-              this.btnState = 0
-              this.btnDisabled = true
-            } else if (time_stamp > endTime) {
-              this.btnState = 2
-              this.btnDisabled = true
-            } else {
-              this.btnState = 1
-              this.btnDisabled = false
-            }
-            obj.caopan_time = obj.caopan_time.substring(0, 10)
-            this.currentProduct = res.obj
-            var list = res.obj.product_list
-            var pickerArr = []
-            var showArr = list
-            if (showArr.length > 0) {
-              showArr.forEach((item, index) => {
-                item.settlement_time = _normalizeStr(item.settlement_time)
-                pickerArr.push(new Plan({
-                  text: item.name,
-                  value: index
-                }))
-              })
-              this.pickerArr = pickerArr
-              this.showArr = showArr
-              this.currentPlan = showArr[0]
-              this.curValue = pickerArr[0].text
-              this.hasData = false
-            }
-          },
-          error: (err) => {
-            this.loading.hide()
-            console.log(err)
-            showToast(this.netWork, 'error')
-          }
-        })
+        // 开始时间的时间戳
+        var start = new Date(startTime + '000').getTime()
+        // 结束时间的时间戳
+        var end = new Date(endTime + '000').getTime()
+        if (time_stamp < start) {
+          this.btnState = 0
+          this.btnDisabled = true
+        } else if (time_stamp > end) {
+          this.btnState = 2
+          this.btnDisabled = true
+        } else {
+          this.btnState = 1
+          this.btnDisabled = false
+        }
+      },
+      // 红包选择
+      selectCoupon(e) {
+        this.currentCoupon = this.CouponArr[e.target.options.selectedIndex]
       },
       // 方案选择
       selectPlan(e) {
         this.currentPlan = this.showArr[e.target.options.selectedIndex]
-        this.curValue = this.pickerArr[e.target.options.selectedIndex].text
+        this.changeBtnState(this.showArr[e.target.options.selectedIndex].investStartTime, this.showArr[e.target.options.selectedIndex].financeEndTime)
       },
       // 表单提交
       formSubmit() {
@@ -423,34 +454,18 @@
   position: absolute;
   top: 0;
   bottom: 0;
-  width: 800px;
-  left: 50%;
-  margin-left: -400px;
+  width: 100%;
 }
 .content {
   width:100%;
   display:flex;
   flex-direction:column;
-  padding:100px 15px 5px;
+  padding:85px 10px 0;
   box-sizing:border-box;
-}
-.item_head{
-  position: relative;
-  line-height:30px;
-  padding-bottom:10px;
-}
-.item_head i{
-  color: #ffac2a;
-  font-size: 18px;
-}
-.item_head .title{
-  padding-left: 10px;
-  font-size: 18px;
-  color: #212121;
 }
 .item_body{
   display: flex;
-  line-height: 2;
+  line-height: 50px;
 }
 .item__left,.item__right{
   flex: 1;
@@ -468,50 +483,39 @@
   overflow: hidden;
   white-space: nowrap;
 }
-.item_foot{
-  color: #333333;
-  line-height: 2;
-  font-size: 14px;
-  display: flex;
-}
 .form_box {
   position:relative;
   flex: 1;
   background:#fff;
-  border-radius:4px;
-  box-shadow:0 1px 3px 0 rgba(0,0,0,.2), 0 1px 1px 0 rgba(0,0,0,.14), 0 2px 1px -1px rgba(0,0,0,.12)
 }
 .form_area {
   display: flex;
   flex-direction: column;
   width: 100%;
-  padding-bottom:15px;
-  padding-top:5px;
 }
 .select_type, .input_area {
   flex: 1;
   display:flex;
   align-items:center;
-  height:40px;
+  height:50px;
   box-sizing:border-box;
 }
 .select_type {
   color: #333333;
   position: relative;
-  margin-bottom: 5px;
 }
 .select_type i {
   position: absolute;
   right: 0;
   top: 0;
-  line-height: 40px;
+  line-height: 50px;
   color: #ffac2a;
   z-index: 0;
 }
 .select_type input {
   width: 100%;
   flex: 1;
-  height: 40px;
+  height: 50px;
   font-size: 18px;
   border-radius: 0;
   border-bottom: 1px solid #ffac2a;
@@ -519,31 +523,47 @@
   position: relative;
   background: transparent;
   cursor: pointer;
+  padding-right: 95px;
 }
 .type_title, .input_title {
   flex: 0 1 auto;
   font-size: 14px;
 }
-.input_con {
-  display:flex;
-  box-sizing:border-box;
-  height:40px;
-  flex:1;
-  align-items:center;
-}
-.input_con .unit {
-  flex:0 1 auto;
-  color:#ffac2a;
-}
-.input_con input {
+.input_form{
   position:relative;
+  box-sizing:border-box;
+  line-height: 1.5;
+  display: flex;
+  align-items: center;
   width: 100%;
-  height:40px;
+}
+.input_form i{
+  font-size:18px;
+  position:absolute;
+  left:0;
+  top: 50%;
+  transform: translateY(-50%);
+  color: #ffac2a;
+}
+.input_form .unit{
+  position: absolute;
+  right: 0;
+  top: 50%;
+  transform: translateY(-50%);
+  color: #ffac2a;
+  font-size:12px;
+}
+.input_form input{
+  height:50px;
+  line-height:16px;
+  padding:17px 25px;
+  font-size: 16px;
   flex:1;
   border-radius: 0;
+  border-bottom:1px solid #ffac2a;
   box-sizing: border-box;
+  background: #fff;
   outline: none;
-  border-bottom: 1px solid #ffac2a;
 }
 .btn_area{
   margin-top: 15px;
@@ -558,7 +578,7 @@
   border: none;
   border-bottom: 1px solid #ffac2a;
   flex: 1;
-  height: 40px;
+  height: 50px;
   font-size: 16px;
   appearance: none;
   -moz-appearance: none;
@@ -589,6 +609,7 @@ input::-webkit-inner-spin-button {
 .money_type{
   display: flex;
   align-items: center;
+  line-height: 50px;
   .title{
     font-size: 14px;
   }

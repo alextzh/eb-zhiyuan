@@ -67,21 +67,21 @@ export default {
     maxNumber: 'MaxNumber',
     tip1: 'Please enter the appointment amount',
     tip2: 'The minimum appointment amount is ',
-    tip3: 'The largest appointment amount of 10 million yuan',
+    tip3: 'The largest appointment amount of 10 million',
     top4: 'appointment incremental amount is ',
     tip5: 'appointment hints',
     tip6: 'You confirm to appointment the current product is ',
-    tip7: 'Increased appointment for 10,000 yuan',
+    tip7: 'Increased appointment for 10,000',
     tip8: 'You confirm that you want to modify the appointment amount is ',
     tip9: 'Please enter the transfer amount',
     tip10: 'Increased amount of money transfer is 1',
-    tip11: 'The largest allocation of 10 million yuan',
+    tip11: 'The largest allocation of 10 million',
     tip12: 'You are sure to apply for money ',
-    tip13: ' yuan?',
+    tip13: ' ?',
     tip14: 'Funding tips',
     tip15: 'Please enter a transfer note(Optional)',
     tip16: 'Are you sure you want to cancel your current transfer request?',
-    tip17: 'The minimum allocation of 10,000 yuan',
+    tip17: 'The minimum allocation of 10,000',
     tip18: 'At least 10,000 starts',
     tip19: 'The new standard is coming soon, so stay tuned',
     tip20: 'No redemption record',
@@ -91,6 +91,7 @@ export default {
     tip24: 'No contract record',
     purchaseBtnTxt: 'Appointment',
     purchaseDisTxt: 'Appointment time yet to come',
+    purchaseDisTxt1: 'Appointment time has passed',
     transferShare: 'TransferAmount',
     transferNote: 'TransferNote',
     transferBtnTxt: 'ApplyTransfer',
@@ -109,8 +110,8 @@ export default {
     modifyPendingReview: 'Modify Pending Review',
     redeemPendingReview: 'Redeem Pending Review',
     redeemed: 'Redeemed',
-    tenThousandYuan: 'ten thousand yuan',
-    yuan: 'yuan'
+    tenThousandYuan: 'ten thousand',
+    yuan: ''
   },
 
   purchaseRecord: {
@@ -130,14 +131,14 @@ export default {
 
   redeem: {
     tip1: 'Please enter the redemption amount',
-    tip2: 'Redemption of the remaining amount must be greater than or equal to 1 million yuan',
+    tip2: 'Redemption of the remaining amount must be greater than or equal to 1 million',
     tip3: 'Minimum redemption amount is 10,000',
-    tip4: 'Redeem incremental amount of 10,000 yuan',
+    tip4: 'Redeem incremental amount of 10,000',
     tip5: 'You confirm to redeem the current product ',
     redeemBtnTxt: 'Apply Redeem',
     rule: {
       title: 'Redemption Management Rules',
-      one: 'Minimum redemption amount of 10,000 yuan, increasing amount of 10,000 yuan',
+      one: 'Minimum redemption amount of 10,000, increasing amount of 10,000',
       two: 'Redemption of amount can not be greater than the purchase amount'
     }
   },
@@ -173,9 +174,9 @@ export default {
     minShare: 'MinAddAmount',
     purchaseStatus: 'PurchaseStatus',
     tip1: 'Please enter additional amount',
-    tip2: 'The minimum additional amount of 10,000 yuan',
-    tip3: 'The largest additional amount of 10 million yuan',
-    tip4: 'Additional incremental amount of 10,000 yuan',
+    tip2: 'The minimum additional amount of 10,000',
+    tip3: 'The largest additional amount of 10 million',
+    tip4: 'Additional incremental amount of 10,000',
     tip5: 'You confirm that you want to append ',
     tip6: ' purchase amount is ',
     tip7: 'You confirm that you want to modify the additional amount is ',
@@ -233,6 +234,26 @@ export default {
     downloadTip: 'Download prompt',
     confirm: 'Confirm',
     cancel: 'Cancel'
+  },
+
+  explain: {
+    title: 'Even Basic Trading Instructions',
+    item1: '1.Buying the target: A shares, etc., the specific trading amount is subject to the project information.',
+    item2: '2.Income distribution: ABC three options',
+    item2_1: 'Plan A: Income 73 divided, investor 7, trader 3, liquidation line 0.7, investor assumes 0.30 loss, trader does not bear losses.',
+    item2_2: 'Plan B: income 55 divided, investor 5, trader 5, liquidation line 0.7, investor bears 0.15 loss, trader bears 0.15 loss.',
+    item2_3: 'Plan C: Income is divided into 37, investor 3, trader 7, closing line 0.7, investor bears 0.01 loss, trader bears 0.29 loss (see details of contract model).',
+    item3: '3.Investment threshold: 1 million investment.'
+  },
+
+  moneyType: {
+    title: 'ReservationCurrency',
+    rmb: 'RMB',
+    hkd: 'HK$'
+  },
+
+  climb: {
+    text: 'The random code is incorrect. Please make an appointment again.'
   },
 
   scroll: {

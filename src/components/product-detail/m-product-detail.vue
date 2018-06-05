@@ -57,6 +57,16 @@
               </div>
             </div>
             <div style="padding: 10px;" v-if="showArr.length === 1">
+              <div class="item_body">
+                <div class="item__left" style="width:65%;">
+                  <span>{{$t('purchase.productName')}}：</span>
+                  <span class="new_data">{{currentPlan.name}}</span>
+                </div>
+                <div class="item__right" style="width:35%;text-align:right;">
+                  <span style="flex:1;">{{$t('purchase.maxNumber')}}：</span>
+                  <span class="all_data" style="flex:0 auto;">{{currentPlan.max_amount}}</span>
+                </div>
+              </div>
               <div class="item_foot" style='display:flex'>
                 <span>{{$t('purchase.settlementTime')}}：</span>
                 <div style="flex:1;display:flex;flex-wrap:wrap;">
@@ -73,6 +83,16 @@
               </div>
             </div>
             <div style="padding: 0 10px 5px;" v-if="showArr.length > 1">
+              <div class="item_body">
+                <div class="item__left" style="width:65%;">
+                  <span>{{$t('purchase.productName')}}：</span>
+                  <span class="new_data">{{currentPlan.name}}</span>
+                </div>
+                <div class="item__right" style="width:35%;text-align:right;">
+                  <span style="flex:1;">{{$t('purchase.maxNumber')}}：</span>
+                  <span class="all_data" style="flex:0 auto;">{{currentPlan.max_amount}}</span>
+                </div>
+              </div>
               <div class="item_foot" style='display:flex'>
                 <span>{{$t('purchase.settlementTime')}}：</span>
                 <div style="flex:1;display:flex;flex-wrap:wrap;">
@@ -89,6 +109,12 @@
               </div>
             </div>
             <div v-if="currentProduct" style="padding: 0 10px;">
+              <!-- <div class="money_type">
+                <span class="title">{{$t('moneyType.title')}}：</span>
+                <div class="con">
+                  <cube-radio-group v-model="moneyType" :options="options" :horizontal="true" />
+                </div>
+              </div> -->
               <div class="input_area">
                 <div class="input_form">
                   <i class="iconfont icon-redeemed"></i>
@@ -96,14 +122,26 @@
                   <input type="number" v-model="purchaseAmt" :placeholder="$t('purchase.tip1')" />
                 </div>
               </div>
-              <div class="btn_area" v-if="currentProduct.yy_btn">
+              <div class="btn_area" v-if="btnState === 1">
                 <cube-button type="submit" :disabled="btnDisabled">{{purchaseBtnTxt}}</cube-button>
               </div>
-              <div class="btn_area" v-else>
+              <div class="btn_area" v-if="btnState === 0">
                 <cube-button type="submit" :disabled="btnDisabled">{{purchaseDisTxt}}</cube-button>
+              </div>
+              <div class="btn_area" v-if="btnState === 2">
+                <cube-button type="submit" :disabled="btnDisabled">{{purchaseDisTxt1}}</cube-button>
               </div>
             </div>
           </form>
+        </div>
+        <div class="explain" v-if="showArr.length > 1">
+          <h6>【{{$t('explain.title')}}】</h6>
+          <p>{{$t('explain.item1')}}</p>
+          <p>{{$t('explain.item2')}}</p>
+          <p>{{$t('explain.item2_1')}}</p>
+          <p>{{$t('explain.item2_2')}}</p>
+          <p>{{$t('explain.item2_3')}}</p>
+          <p>{{$t('explain.item3')}}</p>
         </div>
       </div>
       <div v-if="hasData" class="noData">
@@ -135,18 +173,18 @@
         customer_id: '',
         purchaseAmt: '',
         btnDisabled: false,
-        hasData: false
-      }
-    },
-    watch: {
-      currentProduct(newObj) {
-        if (newObj) {
-          if (newObj.yy_btn) {
-            this.btnDisabled = false
-          } else {
-            this.btnDisabled = true
+        hasData: false,
+        moneyType: '1',
+        options: [
+          {
+            label: this.$i18n.t('moneyType.rmb'),
+            value: '1'
+          },
+          {
+            label: this.$i18n.t('moneyType.hkd'),
+            value: '2'
           }
-        }
+        ]
       }
     },
     computed: {
@@ -155,6 +193,9 @@
       },
       purchaseDisTxt() {
         return this.$i18n.t('purchase.purchaseDisTxt')
+      },
+      purchaseDisTxt1() {
+        return this.$i18n.t('purchase.purchaseDisTxt1')
       },
       loadingTip() {
         return this.$i18n.t('common.loading')
@@ -214,6 +255,11 @@
         this.getSubProductList()
       })
     },
+    watch: {
+      moneyType(newVal) {
+        console.log(newVal)
+      }
+    },
     methods: {
       /**
        * 获取预约项目信息
@@ -238,6 +284,20 @@
               return false
             }
             var obj = res.obj
+            // 开始时间的时间戳
+            var startTime = new Date(obj.sg_start_time + '000').getTime()
+            // 结束时间的时间戳
+            var endTime = new Date(obj.sg_end_time + '000').getTime()
+            if (time_stamp < startTime) {
+              this.btnState = 0
+              this.btnDisabled = true
+            } else if (time_stamp > endTime) {
+              this.btnState = 2
+              this.btnDisabled = true
+            } else {
+              this.btnState = 1
+              this.btnDisabled = false
+            }
             obj.sg_start_time = obj.sg_start_time.substring(5)
             obj.sg_end_time = obj.sg_end_time.substring(5)
             obj.caopan_time = obj.caopan_time.substring(0, 10)
@@ -362,7 +422,7 @@
   }
 </script>
 
-<style scoped lang="scss">
+<style lang="scss">
 .box{
   position: absolute;
   top: 0;
@@ -403,7 +463,7 @@
   width: 50%;
 }
 .new_data,.all_data{
-  font-size: 14px;
+  font-size: 12px;
   color: #212832;
   flex: 1;
   text-overflow: ellipsis;
@@ -541,4 +601,38 @@ input::-webkit-inner-spin-button {
     -webkit-appearance: none !important;
     margin: 0;
 }
+.explain {
+  padding: 20px 10px 0;
+}
+.explain>h6{
+  line-height: 2;
+  font-size: 14px;
+  color: #222;
+}
+.explain>p{
+  font-size: 14px;
+  line-height: 1.5;
+  color: #666;
+}
+
+.money_type{
+  display: flex;
+  align-items: center;
+  .title{
+    font-size: 14px;
+  }
+  .con{
+    flex: 1;
+  }
+}
+.border-right-1px:after{
+  border-right: none;
+}
+.cube-radio-group[data-horz="true"]::after{
+  border: none!important;
+}
+.cube-radio-group[data-horz="true"] .cube-radio-wrap{
+  justify-content: flex-start!important;
+}
+.cube-radio-label{margin-bottom: -2px;}
 </style>

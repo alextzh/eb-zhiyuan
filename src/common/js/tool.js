@@ -48,8 +48,7 @@ export function _normalizeStr(str) {
   return newArr
 }
 
-export function getMd5() {
-  const timestamp = getBJDate()
+export function getMd5(timestamp) {
   const key = 'zhiyuancp'
   const str = `${timestamp}${key}`
   return Md5(str)

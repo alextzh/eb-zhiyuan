@@ -40,10 +40,10 @@
             <span class='unit'>{{$t('apointRecord.tenThousandYuan')}}</span>
             <input type="number" v-model="redeemAmt" maxlength="20" :placeholder="$t('redeem.tip1')" />
           </div>
-          <div class="redeem_tip">
+          <!-- <div class="redeem_tip">
             <i class="iconfont icon-risk"></i>
             <span>{{$t('redeem.tip2')}}</span>
-          </div>
+          </div> -->
         </div>
         <div class="btn_area">
           <cube-button type="submit" :disabled="btnDisabled">{{redeemBtnTxt}}</cube-button>

@@ -6,12 +6,6 @@ body, html {
   background: #fff;
   color: #333333;
 }
-.cube-btn{
-  background: #ff5251!important;
-}
-.cube-btn:active{
-  background: rgba(244,67,54,.5)!important;
-}
 .cube-btn:active::after{
   border: none!important;
 }
