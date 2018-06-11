@@ -109,12 +109,12 @@
               </div>
             </div>
             <div v-if="currentProduct" style="padding: 0 10px;">
-              <!-- <div class="money_type">
+              <div class="money_type">
                 <span class="title">{{$t('moneyType.title')}}：</span>
                 <div class="con">
                   <cube-radio-group v-model="moneyType" :options="options" :horizontal="true" />
                 </div>
-              </div> -->
+              </div>
               <div class="input_area">
                 <div class="input_form">
                   <i class="iconfont icon-redeemed"></i>
@@ -175,6 +175,7 @@
         btnDisabled: false,
         hasData: false,
         moneyType: '1',
+        type: 'rmb',
         options: [
           {
             label: this.$i18n.t('moneyType.rmb'),
@@ -257,7 +258,11 @@
     },
     watch: {
       moneyType(newVal) {
-        console.log(newVal)
+        if (newVal === '1') {
+          this.type = 'rmb'
+        } else {
+          this.type = 'hk'
+        }
       }
     },
     methods: {
@@ -266,7 +271,7 @@
       */
       getSubProductList() {
         const time_stamp = getBJDate()
-        const secret_key = getMd5()
+        const secret_key = getMd5(time_stamp)
         $.ajax({
           type: 'POST',
           url: API.api + '/api/v1/deduct/product4Vip',
@@ -378,14 +383,15 @@
         var product_id = that.currentPlan.id
         var purchaseAmt = parseInt(param)
         const time_stamp = getBJDate()
-        const secret_key = getMd5()
+        const secret_key = getMd5(time_stamp)
         $.ajax({
           type: 'POST',
           url: API.api + '/api/v1/deduct/apply4Vip',
           data: {
             product_id: product_id,
             user_id: that.user_id,
-            deduct_money: purchaseAmt * 10000
+            deduct_money: purchaseAmt * 10000,
+            money_type: that.type
           },
           dataType: 'json',
           headers: {

@@ -169,7 +169,7 @@
       */
       getSubProductList(id) {
         const time_stamp = getBJDate()
-        const secret_key = getMd5()
+        const secret_key = getMd5(time_stamp)
         $.ajax({
           type: 'POST',
           url: API.api + '/api/v1/product/listByBaseId',
@@ -255,7 +255,7 @@
         var product_id = that.currentPlan.id
         var customer_id = that.customer_id
         const time_stamp = getBJDate()
-        const secret_key = getMd5()
+        const secret_key = getMd5(time_stamp)
         $.ajax({
           type: 'POST',
           url: API.api + '/api/v1/subscribe/recast4Vip',

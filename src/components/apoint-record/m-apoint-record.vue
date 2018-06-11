@@ -16,9 +16,13 @@
                 <span class="item_state" style='color: #09B3CD;' v-if="item.status === 'SHTG'">{{$t('apointRecord.reviewPassed')}}</span>
               </div>
               <div class="item_body">
-                <div class="item__left">
+                <div class="item__left"  v-if="item.money_type === 'rmb'">
                   <span>{{$t('purchase.bidShare')}}：</span>
-                  <span class="new_data">{{item.deduct_money}}{{$t('apointRecord.tenThousandYuan')}}</span>
+                  <span class="new_data">¥ {{item.deduct_money}}{{$t('apointRecord.tenThousandYuan')}}</span>
+                </div>
+                <div class="item__left"  v-if="item.money_type === 'hk'">
+                  <span>{{$t('purchase.bidShare')}}：</span>
+                  <span class="new_data">HK$ {{item.deduct_money}}{{$t('apointRecord.tenThousandYuan')}}</span>
                 </div>
               </div>
               <div class="item_body">
@@ -106,7 +110,7 @@
     methods: {
       _getApointRecord() {
         const time_stamp = getBJDate()
-        const secret_key = getMd5()
+        const secret_key = getMd5(time_stamp)
         $.ajax({
           type: 'POST',
           url: API.api + '/api/v1/deduct/myDeducts4Vip',

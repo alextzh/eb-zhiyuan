@@ -123,7 +123,7 @@
     methods: {
       getContractList() {
         const time_stamp = getBJDate()
-        const secret_key = getMd5()
+        const secret_key = getMd5(time_stamp)
         $.ajax({
           type: 'POST',
           url: API.api + '/api/v1/contract/myContract',

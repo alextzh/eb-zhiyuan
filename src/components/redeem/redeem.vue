@@ -175,7 +175,7 @@
         var customer_id = this.customer_id
         var subscribe_id = getProduct().subscribe_id
         const time_stamp = getBJDate()
-        const secret_key = getMd5()
+        const secret_key = getMd5(time_stamp)
         $.ajax({
           type: 'POST',
           url: API.api + '/api/v1/redeem/addRedeem',
